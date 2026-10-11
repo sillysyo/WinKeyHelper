@@ -42,9 +42,12 @@ internal sealed class TrayApp : ApplicationContext
         blockWinItem.CheckedChanged += (_, _) => winHook.Blocked = blockWinItem.Checked;
         menu.Items.Add(blockWinItem);
 
-        var switchIme = new ToolStripMenuItem("切换英文输入法");
-        switchIme.Click += (_, _) => InputMethod.SwitchToEnglish();
-        menu.Items.Add(switchIme);
+        var doubleClickImeItem = new ToolStripMenuItem("启用双击切换英文输入法")
+        {
+            CheckOnClick = true,
+            Checked = true
+        };
+        menu.Items.Add(doubleClickImeItem);
 
         menu.Items.Add(new ToolStripSeparator());
 
@@ -86,7 +89,8 @@ internal sealed class TrayApp : ApplicationContext
         tray.DoubleClick += (_, _) =>
         {
             winHook.Blocked = !winHook.Blocked;
-            InputMethod.SwitchToEnglish();
+            if (doubleClickImeItem.Checked)
+                InputMethod.SwitchToEnglish();
         };
 
         winHook.BlockedChanged += (_, blocked) => blockWinItem.Checked = blocked;
