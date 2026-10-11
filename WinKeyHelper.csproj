@@ -9,6 +9,7 @@
     <AssemblyName>WinKeyHelper</AssemblyName>
     <RootNamespace>WinKeyHelper</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>src\Assets\WinKeyHelper.ico</ApplicationIcon>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>

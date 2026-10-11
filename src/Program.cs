@@ -27,10 +27,12 @@ internal sealed class TrayApp : ApplicationContext
     private readonly ToolStripMenuItem blockWinItem;
     private readonly ToolStripMenuItem startupItem;
     private readonly WinKeyHook winHook;
+    private readonly Icon appIcon;
 
     public TrayApp()
     {
         menu = new ContextMenuStrip();
+        winHook = new WinKeyHook { Blocked = true };
 
         blockWinItem = new ToolStripMenuItem("屏蔽 Windows 键")
         {
@@ -72,16 +74,17 @@ internal sealed class TrayApp : ApplicationContext
         exit.Click += (_, _) => ExitThread();
         menu.Items.Add(exit);
 
+        appIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
+            ?? (Icon)SystemIcons.Application.Clone();
         tray = new NotifyIcon
         {
-            Icon = SystemIcons.Application,
+            Icon = appIcon,
             Text = "WinKeyHelper",
             Visible = true,
             ContextMenuStrip = menu
         };
         tray.DoubleClick += (_, _) => winHook.Blocked = !winHook.Blocked;
 
-        winHook = new WinKeyHook { Blocked = true };
         winHook.BlockedChanged += (_, blocked) => blockWinItem.Checked = blocked;
         winHook.Install();
         winHook.RegisterToggleHotkey();
@@ -93,6 +96,7 @@ internal sealed class TrayApp : ApplicationContext
         winHook.Dispose();
         tray.Visible = false;
         tray.Dispose();
+        appIcon.Dispose();
         menu.Dispose();
         base.ExitThreadCore();
     }

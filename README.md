@@ -10,6 +10,7 @@ A tiny Windows tray utility for users who want a few keyboard conveniences witho
 - Disable the **Sticky Keys shortcut** triggered by pressing Shift five times.
 - Optional startup with Windows.
 - Single-instance, tray-only application.
+- The tray and executable use the icon in `src/Assets/WinKeyHelper.ico`.
 
 ## Design
 
@@ -26,14 +27,14 @@ This utility does not require administrator privileges.
 
 ## Build
 
-The repository includes a GitHub Actions workflow that builds a self-contained `win-x64` single-file executable.
+The repository includes a GitHub Actions workflow that builds a self-contained `win-x64` single-file executable. Self-contained publishing bundles the .NET runtime, so the executable is large. Windows Forms apps are not currently supported by .NET trimming, so the build does not enable trimming.
 
 ### Local build
 
 On Windows with .NET 8 SDK installed:
 
 ```powershell
-dotnet publish WinKeyHelper.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true -o publish
+dotnet publish WinKeyHelper.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish
 ```
 
 The executable will be written to `publish\WinKeyHelper.exe`.
