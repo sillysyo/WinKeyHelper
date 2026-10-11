@@ -6,6 +6,7 @@ A tiny Windows tray utility for users who want a few keyboard conveniences witho
 
 - Block **Left/Right Windows keys** globally.
 - Toggle Win-key blocking with `Ctrl + Alt + W`.
+- Double-click the tray icon to toggle Win-key blocking and switch to **English (US)**.
 - Switch the active keyboard layout to **English (US)** from the tray menu.
 - Disable the **Sticky Keys shortcut** triggered by pressing Shift five times.
 - Optional startup with Windows.

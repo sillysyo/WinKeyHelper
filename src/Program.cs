@@ -83,7 +83,11 @@ internal sealed class TrayApp : ApplicationContext
             Visible = true,
             ContextMenuStrip = menu
         };
-        tray.DoubleClick += (_, _) => winHook.Blocked = !winHook.Blocked;
+        tray.DoubleClick += (_, _) =>
+        {
+            winHook.Blocked = !winHook.Blocked;
+            InputMethod.SwitchToEnglish();
+        };
 
         winHook.BlockedChanged += (_, blocked) => blockWinItem.Checked = blocked;
         winHook.Install();
